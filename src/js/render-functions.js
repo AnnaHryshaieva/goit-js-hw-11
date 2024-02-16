@@ -1,5 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { hideLoader } from './pixabay-api';
 
 const myGallery = document.querySelector('.gallery');
 
@@ -7,33 +8,27 @@ function galleries(object) {
   const markup = object.hits
     .map(hit => {
       return `<li class="gallery-item">
-        <a href="${hit.largeImageURL}">
-          <img
-            src="${hit.webformatURL}"
-            class="gallery-image"
-            alt="${hit.tags}"
-          />
-        </a>
-        <p>
-          Likes
-          <span>${hit.likes}</span>
-        </p>
-        <p>
-          Views
-          <span>${hit.views}</span>
-        </p>
-        <p>
-          Comments
-          <span>${hit.comments}</span>
-        </p>
-        <p>
-          Downloads
-          <span>${hit.downloads}</span>
-        </p>
-      </li>`;
+  <a href="${hit.largeImageURL}">
+    <img src="${hit.webformatURL}" class="gallery-image" alt="${hit.tags}" />
+  </a>
+  <div class="info">
+    <p class="info-item">
+      <b>Likes</b> </br>${hit.likes}
+    </p>
+    <p class="info-item">
+      <b>Views</b> </br>${hit.views}
+    </p>
+    <p class="info-item">
+      <b>Comments</b> </br>${hit.comments}
+    </p>
+    <p class="info-item">
+      <b>Downloads</b> </br>${hit.downloads}
+    </p>
+  </div>
+</li>`;
     })
     .join('');
-
+  hideLoader();
   myGallery.insertAdjacentHTML('afterbegin', markup);
 
   const lightbox = new SimpleLightbox('.gallery a', {

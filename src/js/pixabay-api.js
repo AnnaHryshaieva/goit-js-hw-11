@@ -3,6 +3,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.form');
+const loader = document.querySelector('span');
 
 form.addEventListener('submit', onSubmit);
 
@@ -16,6 +17,7 @@ function onSubmit(event) {
   if (inputValue === '') {
     return;
   }
+  showLoader();
 
   getPictures(inputValue);
 
@@ -23,10 +25,15 @@ function onSubmit(event) {
 }
 
 function getPictures(inputValue) {
-  const BASE_URL = 'https://pixabay.com/api/';
-  const API_KEY = '34206508-2ad29bd7e91dc1db4e67bd855';
-  const PARAMS = `?key=${API_KEY}&q=${inputValue}&image_type=photo&orientation=horizontal&safesearch=true`;
-  const url = BASE_URL + PARAMS;
+  const BASE_URL = 'https://pixabay.com/api/?';
+  const searchParams = new URLSearchParams({
+    key: '34206508-2ad29bd7e91dc1db4e67bd855',
+    q: inputValue,
+    image_type: 'photo',
+    orientation: 'horizontal',
+    safesearch: true,
+  });
+  const url = BASE_URL + searchParams;
 
   return fetch(url)
     .then(response => {
@@ -48,4 +55,14 @@ function getPictures(inputValue) {
     .catch(error => {
       console.log(error);
     });
+}
+
+function showLoader() {
+  loader.classList.add('loader');
+}
+
+export function hideLoader() {
+  if (loader) {
+    loader.classList.remove('loader');
+  }
 }
