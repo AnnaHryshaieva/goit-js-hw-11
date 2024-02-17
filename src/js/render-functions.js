@@ -1,6 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { hideLoader } from './pixabay-api';
+import { hideLoader } from '../main';
 
 const myGallery = document.querySelector('.gallery');
 

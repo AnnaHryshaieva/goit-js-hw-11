@@ -1,30 +1,8 @@
-import { myGallery, galleries } from './render-functions';
+import { galleries } from './render-functions';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const form = document.querySelector('.form');
-const loader = document.querySelector('span');
-
-form.addEventListener('submit', onSubmit);
-
-function onSubmit(event) {
-  event.preventDefault();
-
-  myGallery.innerHTML = '';
-
-  const inputValue = event.target.elements.search.value;
-
-  if (inputValue === '') {
-    return;
-  }
-  showLoader();
-
-  getPictures(inputValue);
-
-  event.target.reset();
-}
-
-function getPictures(inputValue) {
+export function getPictures(inputValue) {
   const BASE_URL = 'https://pixabay.com/api/?';
   const searchParams = new URLSearchParams({
     key: '34206508-2ad29bd7e91dc1db4e67bd855',
@@ -55,14 +33,4 @@ function getPictures(inputValue) {
     .catch(error => {
       console.log(error);
     });
-}
-
-function showLoader() {
-  loader.classList.add('loader');
-}
-
-export function hideLoader() {
-  if (loader) {
-    loader.classList.remove('loader');
-  }
 }
